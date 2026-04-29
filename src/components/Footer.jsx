@@ -13,9 +13,9 @@ const footerLinks = {
     'Partners',
   ],
   Legal: [
-    'Legal Notice',
-    'Privacy Policy',
-    'Terms & Conditions',
+    { label: 'Legal Notice', href: '#' },
+    { label: 'Privacy Policy', href: '/privacy-policy' },
+    { label: 'Terms & Conditions', href: '#' },
   ],
 }
 
@@ -91,10 +91,13 @@ export default function Footer() {
                 {category}
               </h4>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {links.map((link) => (
-                  <li key={link}>
+                {links.map((link) => {
+                  const label = typeof link === 'string' ? link : link.label
+                  const href = typeof link === 'string' ? '#' : link.href
+                  return (
+                  <li key={label}>
                     <a
-                      href="#"
+                      href={href}
                       style={{
                         fontFamily: 'Inter, sans-serif',
                         fontSize: '13px',
@@ -106,10 +109,10 @@ export default function Footer() {
                       onMouseEnter={e => e.target.style.color = 'white'}
                       onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.65)'}
                     >
-                      {link}
+                      {label}
                     </a>
                   </li>
-                ))}
+                )})}
               </ul>
             </div>
           ))}

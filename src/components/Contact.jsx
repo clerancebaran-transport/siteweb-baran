@@ -38,10 +38,39 @@ export default function Contact() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const [form, setForm] = useState({ nom: '', email: '', tel: '', message: '' })
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSent(true)
+    setSending(true)
+    setError(false)
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: '93d1d333-1ff2-451c-88a8-ffe83d54dbde',
+          subject: 'New Contact Request — Clearance Baran',
+          from_name: form.nom,
+          email: form.email,
+          phone: form.tel,
+          message: form.message,
+        }),
+      })
+      const data = await response.json()
+      if (data.success) {
+        setSent(true)
+        setForm({ nom: '', email: '', tel: '', message: '' })
+      } else {
+        setError(true)
+      }
+    } catch {
+      setError(true)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -203,10 +232,21 @@ export default function Contact() {
                   />
                 </div>
 
+                {error && (
+                  <p style={{
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '13px',
+                    color: '#c0392b',
+                    textAlign: 'center',
+                  }}>
+                    Something went wrong. Please try again.
+                  </p>
+                )}
                 <button
                   type="submit"
+                  disabled={sending}
                   style={{
-                    backgroundColor: '#0F2742',
+                    backgroundColor: sending ? '#2E5B7A' : '#0F2742',
                     color: 'white',
                     fontFamily: 'Montserrat, sans-serif',
                     fontWeight: 700,
@@ -215,14 +255,15 @@ export default function Contact() {
                     textTransform: 'uppercase',
                     padding: '18px 32px',
                     border: 'none',
-                    cursor: 'pointer',
+                    cursor: sending ? 'not-allowed' : 'pointer',
                     transition: 'background-color 0.3s ease',
                     width: '100%',
+                    opacity: sending ? 0.8 : 1,
                   }}
-                  onMouseEnter={e => e.target.style.backgroundColor = '#2E5B7A'}
-                  onMouseLeave={e => e.target.style.backgroundColor = '#0F2742'}
+                  onMouseEnter={e => { if (!sending) e.target.style.backgroundColor = '#2E5B7A' }}
+                  onMouseLeave={e => { if (!sending) e.target.style.backgroundColor = '#0F2742' }}
                 >
-                  Send My Request
+                  {sending ? 'Sending...' : 'Send My Request'}
                 </button>
               </form>
             )}

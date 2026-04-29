@@ -33,7 +33,7 @@ export default function WhyUs() {
     <section
       id="why-us"
       style={{
-        padding: '96px 0',
+        padding: 'clamp(48px, 8vw, 96px) 0',
         backgroundColor: '#0F2742',
         position: 'relative',
         overflow: 'hidden',
@@ -66,7 +66,7 @@ export default function WhyUs() {
       <div ref={ref} style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(400px, 100%), 1fr))',
           gap: '80px',
           alignItems: 'center',
         }}>
@@ -131,7 +131,7 @@ export default function WhyUs() {
           </motion.div>
 
           {/* Right features grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: '16px' }}>
             {features.map((feat, i) => {
               const { Icon } = feat
               return (

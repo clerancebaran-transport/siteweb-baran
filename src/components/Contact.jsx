@@ -4,7 +4,7 @@ import { MapPin, Phone, Mail, Clock, CheckCircle } from 'lucide-react'
 
 const contactInfo = [
   { Icon: MapPin, label: 'Address', value: 'Rue Delvaux 21, 4340 Awans, Belgium' },
-  { Icon: Phone, label: 'Phone', value: '+32 (0) XXX XX XX XX' },
+  { Icon: Phone, label: 'Phone', value: '+32 488 08 01 14' },
   { Icon: Mail, label: 'Email', value: 'contact@clearance-baran.com' },
   { Icon: Clock, label: 'Office Hours', value: 'Mon–Fri: 8:00 AM – 6:00 PM' },
 ]
@@ -45,7 +45,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" style={{ padding: '96px 0', backgroundColor: '#F8FAFC' }}>
+    <section id="contact" style={{ padding: 'clamp(48px, 8vw, 96px) 0', backgroundColor: '#F8FAFC' }}>
       <div ref={ref} style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
 
         {/* Header */}
@@ -103,7 +103,7 @@ export default function Contact() {
         {/* Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))',
           gap: '48px',
         }}>
 
@@ -147,7 +147,7 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))', gap: '20px' }}>
                   <div>
                     <label style={labelStyle}>Full Name</label>
                     <input

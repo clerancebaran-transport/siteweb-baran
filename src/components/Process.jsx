@@ -34,7 +34,7 @@ export default function Process() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="process" style={{ padding: '96px 0', backgroundColor: 'white' }}>
+    <section id="process" style={{ padding: 'clamp(48px, 8vw, 96px) 0', backgroundColor: 'white' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
 
         {/* Header */}

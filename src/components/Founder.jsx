@@ -17,7 +17,7 @@ export default function Founder() {
     <section
       id="founder"
       style={{
-        padding: '96px 0',
+        padding: 'clamp(48px, 8vw, 96px) 0',
         backgroundColor: 'white',
         position: 'relative',
         overflow: 'hidden',
@@ -52,7 +52,7 @@ export default function Founder() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))',
           gap: '64px',
           alignItems: 'center',
         }}>

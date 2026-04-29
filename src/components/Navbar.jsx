@@ -177,8 +177,8 @@ export default function Navbar() {
       </AnimatePresence>
 
       <style>{`
-        @media (min-width: 768px) { .show-mobile { display: none !important; } }
-        @media (max-width: 767px) { .hidden-mobile { display: none !important; } }
+        @media (min-width: 1024px) { .show-mobile { display: none !important; } }
+        @media (max-width: 1023px) { .hidden-mobile { display: none !important; } }
       `}</style>
     </header>
   )

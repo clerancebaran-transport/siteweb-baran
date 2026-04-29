@@ -97,7 +97,7 @@ export default function Hero() {
       <div style={{
         position: 'relative', zIndex: 10,
         maxWidth: '900px', margin: '0 auto',
-        padding: '100px 24px 60px',
+        padding: 'clamp(80px, 12vw, 120px) 24px clamp(40px, 6vw, 60px)',
         textAlign: 'center',
       }}>
 
@@ -122,7 +122,7 @@ export default function Hero() {
           variants={fadeUp} initial="hidden" animate="visible" custom={0.4}
           style={{
             fontFamily: 'Montserrat, sans-serif', fontWeight: 900,
-            fontSize: 'clamp(2.6rem, 7vw, 5.5rem)',
+            fontSize: 'clamp(2rem, 5.5vw, 5.5rem)',
             color: 'white',
             textTransform: 'uppercase',
             letterSpacing: '-0.02em', lineHeight: 1,
@@ -203,39 +203,6 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* Stats strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          style={{
-            marginTop: '72px',
-            display: 'flex', justifyContent: 'center',
-            gap: '0', flexWrap: 'wrap',
-          }}
-        >
-          {[
-            { num: '500+', label: 'Clients' },
-            { num: '15 yrs', label: 'Experience' },
-            { num: '98%', label: 'Compliance' },
-          ].map((s, i) => (
-            <div key={s.label} style={{
-              textAlign: 'center', padding: '0 32px',
-              borderRight: i < 2 ? '1px solid rgba(255,255,255,0.15)' : 'none',
-            }}>
-              <div style={{
-                fontSize: '1.7rem', fontFamily: 'Montserrat, sans-serif',
-                fontWeight: 900, color: 'white', lineHeight: 1,
-                marginBottom: '6px', textShadow: '0 2px 10px rgba(0,0,0,0.4)',
-              }}>{s.num}</div>
-              <div style={{
-                fontSize: '10px', fontFamily: 'Inter, sans-serif',
-                color: 'rgba(255,255,255,0.6)',
-                textTransform: 'uppercase', letterSpacing: '0.2em',
-              }}>{s.label}</div>
-            </div>
-          ))}
-        </motion.div>
       </div>
 
       {/* Scroll indicator */}

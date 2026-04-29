@@ -151,7 +151,7 @@ export default function Services() {
   const inView = useInView(ref, { once: true })
 
   return (
-    <section id="services" style={{ padding: '96px 0', backgroundColor: '#F8FAFC' }}>
+    <section id="services" style={{ padding: 'clamp(48px, 8vw, 96px) 0', backgroundColor: '#F8FAFC' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
 
         {/* Header */}
@@ -206,7 +206,7 @@ export default function Services() {
         {/* Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(300px, 100%), 1fr))',
           gap: '24px',
         }}>
           {services.map((service, i) => (

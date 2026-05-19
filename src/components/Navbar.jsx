@@ -1,19 +1,58 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
+import translations from '../translations'
 
-const navLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'Services', href: '#services' },
-  { label: 'Our Approach', href: '#why-us' },
-  { label: 'Process', href: '#process' },
-  { label: 'About', href: '#founder' },
-  { label: 'Contact', href: '#contact' },
-]
+function LanguageSwitcher() {
+  const { lang, setLang } = useLanguage()
+
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '4px',
+      backgroundColor: 'rgba(255,255,255,0.08)',
+      borderRadius: '4px',
+      padding: '4px',
+    }}>
+      {[
+        { code: 'fr', flag: '🇫🇷', label: 'FR' },
+        { code: 'en', flag: '🇬🇧', label: 'EN' },
+      ].map(({ code, flag, label }) => (
+        <button
+          key={code}
+          onClick={() => setLang(code)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            backgroundColor: lang === code ? '#C5A46D' : 'transparent',
+            border: 'none',
+            borderRadius: '3px',
+            color: lang === code ? 'white' : 'rgba(255,255,255,0.6)',
+            fontFamily: 'Montserrat, sans-serif',
+            fontWeight: 700,
+            fontSize: '10px',
+            letterSpacing: '0.1em',
+            padding: '5px 8px',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+          }}
+        >
+          <span style={{ fontSize: '14px', lineHeight: 1 }}>{flag}</span>
+          {label}
+        </button>
+      ))}
+    </div>
+  )
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { lang } = useLanguage()
+  const t = translations[lang].navbar
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60)
@@ -55,7 +94,7 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="hidden-mobile">
-          {navLinks.map((link) => (
+          {t.links.map((link) => (
             <a
               key={link.label}
               href={link.href}
@@ -78,29 +117,31 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <a
-          href="#contact"
-          className="hidden-mobile"
-          style={{
-            backgroundColor: '#C5A46D',
-            color: 'white',
-            fontFamily: 'Montserrat, sans-serif',
-            fontWeight: 700,
-            fontSize: '11px',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            padding: '12px 24px',
-            textDecoration: 'none',
-            transition: 'background-color 0.2s ease',
-            cursor: 'pointer',
-            display: 'inline-block',
-          }}
-          onMouseEnter={e => e.target.style.backgroundColor = '#b8935c'}
-          onMouseLeave={e => e.target.style.backgroundColor = '#C5A46D'}
-        >
-          Free Quote
-        </a>
+        {/* Right side: Language switcher + CTA */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="hidden-mobile">
+          <LanguageSwitcher />
+          <a
+            href="#contact"
+            style={{
+              backgroundColor: '#C5A46D',
+              color: 'white',
+              fontFamily: 'Montserrat, sans-serif',
+              fontWeight: 700,
+              fontSize: '11px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              padding: '12px 24px',
+              textDecoration: 'none',
+              transition: 'background-color 0.2s ease',
+              cursor: 'pointer',
+              display: 'inline-block',
+            }}
+            onMouseEnter={e => e.target.style.backgroundColor = '#b8935c'}
+            onMouseLeave={e => e.target.style.backgroundColor = '#C5A46D'}
+          >
+            {t.cta}
+          </a>
+        </div>
 
         {/* Mobile hamburger */}
         <button
@@ -133,7 +174,7 @@ export default function Navbar() {
             }}
           >
             <div style={{ padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {navLinks.map((link) => (
+              {t.links.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
@@ -152,6 +193,9 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
+              <div style={{ paddingTop: '8px' }}>
+                <LanguageSwitcher />
+              </div>
               <a
                 href="#contact"
                 onClick={() => setMenuOpen(false)}
@@ -169,7 +213,7 @@ export default function Navbar() {
                   cursor: 'pointer',
                 }}
               >
-                Free Quote
+                {t.cta}
               </a>
             </div>
           </motion.div>

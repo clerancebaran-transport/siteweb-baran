@@ -1,13 +1,10 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, CheckCircle } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
+import translations from '../translations'
 
-const contactInfo = [
-  { Icon: MapPin, label: 'Address', value: 'Rue Delvaux 21, 4340 Awans, Belgium' },
-  { Icon: Phone, label: 'Phone', value: '+32 488 08 01 14' },
-  { Icon: Mail, label: 'Email', value: 'clerancebaran@gmail.com' },
-  { Icon: Clock, label: 'Office Hours', value: 'Mon–Fri: 8:00 – 17:00' },
-]
+const contactIcons = [MapPin, Phone, Mail, Clock]
 
 const inputStyle = {
   width: '100%',
@@ -40,6 +37,8 @@ export default function Contact() {
   const [sent, setSent] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(false)
+  const { lang } = useLanguage()
+  const t = translations[lang].contact
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -77,7 +76,6 @@ export default function Contact() {
     <section id="contact" style={{ padding: 'clamp(48px, 8vw, 96px) 0', backgroundColor: '#F8FAFC' }}>
       <div ref={ref} style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
 
-        {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '64px' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -90,7 +88,7 @@ export default function Contact() {
               color: '#C5A46D', fontSize: '11px', fontFamily: 'Montserrat, sans-serif',
               fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase',
             }}>
-              Get In Touch
+              {t.label}
             </span>
             <span style={{ width: '32px', height: '1px', backgroundColor: '#C5A46D' }} />
           </motion.div>
@@ -109,7 +107,7 @@ export default function Contact() {
               marginBottom: '16px',
             }}
           >
-            Let's Talk About Your Shipment
+            {t.title}
           </motion.h2>
 
           <motion.p
@@ -125,18 +123,16 @@ export default function Contact() {
               lineHeight: 1.8,
             }}
           >
-            Describe your need and our customs expert will get back to you within 24 business hours.
+            {t.subtitle}
           </motion.p>
         </div>
 
-        {/* Grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))',
           gap: '48px',
         }}>
 
-          {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -163,26 +159,27 @@ export default function Contact() {
                   letterSpacing: '0.1em',
                   marginBottom: '12px',
                 }}>
-                  Message Sent
+                  {t.sentTitle}
                 </h3>
                 <p style={{
                   fontFamily: 'Inter, sans-serif',
                   fontSize: '13px',
                   color: 'rgba(255,255,255,0.55)',
                   lineHeight: 1.7,
+                  whiteSpace: 'pre-line',
                 }}>
-                  Thank you for your message.<br />We will get back to you within 24 hours.
+                  {t.sentBody}
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))', gap: '20px' }}>
                   <div>
-                    <label style={labelStyle}>Full Name</label>
+                    <label style={labelStyle}>{t.form.name}</label>
                     <input
                       type="text"
                       required
-                      placeholder="John Smith"
+                      placeholder={t.form.namePlaceholder}
                       value={form.nom}
                       onChange={e => setForm({ ...form, nom: e.target.value })}
                       style={inputStyle}
@@ -191,7 +188,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label style={labelStyle}>Phone</label>
+                    <label style={labelStyle}>{t.form.phone}</label>
                     <input
                       type="tel"
                       placeholder="+32 XXX XX XX XX"
@@ -205,11 +202,11 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label style={labelStyle}>Business Email</label>
+                  <label style={labelStyle}>{t.form.email}</label>
                   <input
                     type="email"
                     required
-                    placeholder="contact@your-company.com"
+                    placeholder={t.form.emailPlaceholder}
                     value={form.email}
                     onChange={e => setForm({ ...form, email: e.target.value })}
                     style={inputStyle}
@@ -219,11 +216,11 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label style={labelStyle}>Your Request</label>
+                  <label style={labelStyle}>{t.form.message}</label>
                   <textarea
                     required
                     rows={5}
-                    placeholder="Describe your customs operation, type of goods, volume, origin..."
+                    placeholder={t.form.messagePlaceholder}
                     value={form.message}
                     onChange={e => setForm({ ...form, message: e.target.value })}
                     style={{ ...inputStyle, resize: 'none' }}
@@ -239,7 +236,7 @@ export default function Contact() {
                     color: '#c0392b',
                     textAlign: 'center',
                   }}>
-                    Something went wrong. Please try again.
+                    {t.form.error}
                   </p>
                 )}
                 <button
@@ -263,64 +260,65 @@ export default function Contact() {
                   onMouseEnter={e => { if (!sending) e.target.style.backgroundColor = '#2E5B7A' }}
                   onMouseLeave={e => { if (!sending) e.target.style.backgroundColor = '#0F2742' }}
                 >
-                  {sending ? 'Sending...' : 'Send My Request'}
+                  {sending ? t.form.sending : t.form.submit}
                 </button>
               </form>
             )}
           </motion.div>
 
-          {/* Info panel */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
             style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
           >
-            {contactInfo.map(({ Icon, label, value }) => (
-              <div
-                key={label}
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '16px',
-                  padding: '24px',
-                  backgroundColor: 'white',
-                  border: '1px solid #DCEAF4',
-                }}
-              >
-                <div style={{
-                  width: '40px', height: '40px',
-                  backgroundColor: '#DCEAF4',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0,
-                }}>
-                  <Icon size={17} style={{ color: '#2E5B7A' }} />
-                </div>
-                <div>
+            {t.info.map(({ label, value }, i) => {
+              const Icon = contactIcons[i]
+              return (
+                <div
+                  key={label}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '16px',
+                    padding: '24px',
+                    backgroundColor: 'white',
+                    border: '1px solid #DCEAF4',
+                  }}
+                >
                   <div style={{
-                    fontSize: '10px',
-                    fontFamily: 'Montserrat, sans-serif',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.15em',
-                    color: 'rgba(43,49,55,0.4)',
-                    marginBottom: '4px',
+                    width: '40px', height: '40px',
+                    backgroundColor: '#DCEAF4',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0,
                   }}>
-                    {label}
+                    <Icon size={17} style={{ color: '#2E5B7A' }} />
                   </div>
-                  <div style={{
-                    fontSize: '13px',
-                    fontFamily: 'Inter, sans-serif',
-                    fontWeight: 500,
-                    color: '#0F2742',
-                  }}>
-                    {value}
+                  <div>
+                    <div style={{
+                      fontSize: '10px',
+                      fontFamily: 'Montserrat, sans-serif',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.15em',
+                      color: 'rgba(43,49,55,0.4)',
+                      marginBottom: '4px',
+                    }}>
+                      {label}
+                    </div>
+                    <div style={{
+                      fontSize: '13px',
+                      fontFamily: 'Inter, sans-serif',
+                      fontWeight: 500,
+                      color: '#0F2742',
+                    }}>
+                      {value}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
 
-            {/* Engagement card */}
             <div style={{
               backgroundColor: '#0F2742',
               padding: '28px',
@@ -335,7 +333,7 @@ export default function Contact() {
                 letterSpacing: '0.2em',
                 marginBottom: '12px',
               }}>
-                Our Commitment
+                {t.commitmentLabel}
               </p>
               <p style={{
                 fontFamily: 'Inter, sans-serif',
@@ -344,8 +342,7 @@ export default function Contact() {
                 lineHeight: 1.9,
                 fontStyle: 'italic',
               }}>
-                "We handle every file with the precision of an expert
-                and the responsiveness of a committed partner."
+                {t.commitmentQuote}
               </p>
               <div style={{
                 marginTop: '20px',
@@ -377,7 +374,7 @@ export default function Contact() {
                     fontFamily: 'Inter, sans-serif',
                     fontSize: '11px',
                     color: 'rgba(255,255,255,0.35)',
-                  }}>Licensed Customs Broker</div>
+                  }}>{t.brokerLabel}</div>
                 </div>
               </div>
             </div>

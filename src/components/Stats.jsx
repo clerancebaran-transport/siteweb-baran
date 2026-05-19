@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
+import translations from '../translations'
 
 function CountUp({ end, suffix = '', duration = 2000 }) {
   const [count, setCount] = useState(0)
@@ -23,14 +25,17 @@ function CountUp({ end, suffix = '', duration = 2000 }) {
   return <span ref={ref}>{count}{suffix}</span>
 }
 
-const stats = [
-  { value: 500, suffix: '+', label: 'Satisfied Clients', sub: 'businesses supported' },
-  { value: 15, suffix: ' yrs', label: 'Experience', sub: 'customs expertise' },
-  { value: 98, suffix: '%', label: 'Compliance Rate', sub: 'files approved' },
-  { value: 24, suffix: 'h', label: 'Average Turnaround', sub: 'file processing time' },
+const statValues = [
+  { value: 500, suffix: '+' },
+  { value: 15, suffix: ' yrs' },
+  { value: 98, suffix: '%' },
+  { value: 24, suffix: 'h' },
 ]
 
 export default function Stats() {
+  const { lang } = useLanguage()
+  const t = translations[lang].stats
+
   return (
     <section style={{
       padding: '80px 0',
@@ -38,7 +43,6 @@ export default function Stats() {
       position: 'relative',
       overflow: 'hidden',
     }}>
-      {/* Dot pattern */}
       <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.05, pointerEvents: 'none' }}>
         <defs>
           <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
@@ -48,7 +52,6 @@ export default function Stats() {
         <rect width="100%" height="100%" fill="url(#dots)" />
       </svg>
 
-      {/* Gold horizontal lines */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0,
         height: '1px', background: 'linear-gradient(90deg, transparent, rgba(197,164,109,0.4), transparent)',
@@ -64,7 +67,7 @@ export default function Stats() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
           gap: '48px',
         }}>
-          {stats.map((stat, i) => (
+          {t.map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 30 }}
@@ -81,7 +84,7 @@ export default function Stats() {
                 lineHeight: 1,
                 marginBottom: '8px',
               }}>
-                <CountUp end={stat.value} suffix={stat.suffix} />
+                <CountUp end={statValues[i].value} suffix={statValues[i].suffix} />
               </div>
               <div style={{
                 fontFamily: 'Montserrat, sans-serif',

@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronDown } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
+import translations from '../translations'
 
 function MaritimeGrid() {
   return (
@@ -50,6 +52,9 @@ const fadeUp = {
 }
 
 export default function Hero() {
+  const { lang } = useLanguage()
+  const t = translations[lang].hero
+
   return (
     <section
       id="hero"
@@ -73,7 +78,6 @@ export default function Hero() {
       <MaritimeGrid />
       <GlowOrbs />
 
-      {/* Rotating decorative rings */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
@@ -93,7 +97,6 @@ export default function Hero() {
         }}
       />
 
-      {/* Content */}
       <div style={{
         position: 'relative', zIndex: 10,
         maxWidth: '900px', margin: '0 auto',
@@ -101,7 +104,6 @@ export default function Hero() {
         textAlign: 'center',
       }}>
 
-        {/* Badge */}
         <motion.div
           variants={fadeUp} initial="hidden" animate="visible" custom={0.2}
           style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}
@@ -112,12 +114,11 @@ export default function Hero() {
             fontFamily: 'Montserrat, sans-serif', fontWeight: 700,
             letterSpacing: '0.35em', textTransform: 'uppercase',
           }}>
-            Licensed Customs Broker — Belgium
+            {t.badge}
           </span>
           <span style={{ width: '32px', height: '1px', backgroundColor: '#C5A46D' }} />
         </motion.div>
 
-        {/* Main headline */}
         <motion.h1
           variants={fadeUp} initial="hidden" animate="visible" custom={0.4}
           style={{
@@ -130,18 +131,17 @@ export default function Hero() {
             textShadow: '0 2px 20px rgba(0,0,0,0.5)',
           }}
         >
-          Your Expert in
+          {t.h1a}
           <br />
           <span style={{
             background: 'linear-gradient(90deg, #C5A46D, #e8c98e)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
           }}>
-            Customs Clearance
+            {t.h1b}
           </span>
         </motion.h1>
 
-        {/* Subtitle */}
         <motion.p
           variants={fadeUp} initial="hidden" animate="visible" custom={0.6}
           style={{
@@ -153,12 +153,9 @@ export default function Hero() {
             textShadow: '0 1px 8px rgba(0,0,0,0.4)',
           }}
         >
-          Clearance Baran handles your import/export operations with precision,
-          compliance and speed. E-commerce, China–Belgium trade, sea, air & road —
-          end-to-end customs expertise at your service.
+          {t.subtitle}
         </motion.p>
 
-        {/* CTAs */}
         <motion.div
           variants={fadeUp} initial="hidden" animate="visible" custom={0.8}
           style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}
@@ -177,7 +174,7 @@ export default function Hero() {
             onMouseEnter={e => e.currentTarget.style.backgroundColor = '#b8935c'}
             onMouseLeave={e => e.currentTarget.style.backgroundColor = '#C5A46D'}
           >
-            Get a Free Quote <ArrowRight size={14} />
+            {t.cta1} <ArrowRight size={14} />
           </a>
           <a
             href="#services"
@@ -199,13 +196,12 @@ export default function Hero() {
               e.currentTarget.style.backgroundColor = 'transparent'
             }}
           >
-            Our Services
+            {t.cta2}
           </a>
         </motion.div>
 
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}

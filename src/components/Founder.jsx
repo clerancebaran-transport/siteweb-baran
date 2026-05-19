@@ -1,17 +1,14 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { GraduationCap, Briefcase, CheckCircle } from 'lucide-react'
-
-const credentials = [
-  'HEC — Fundamentals of Customs & Excise Legislation',
-  'Licensed Customs Broker, Belgium',
-  'Specialist in China–Belgium import operations',
-  'Expert in e-commerce cross-border logistics',
-]
+import { useLanguage } from '../context/LanguageContext'
+import translations from '../translations'
 
 export default function Founder() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const { lang } = useLanguage()
+  const t = translations[lang].founder
 
   return (
     <section
@@ -23,7 +20,6 @@ export default function Founder() {
         overflow: 'hidden',
       }}
     >
-      {/* Subtle background accent */}
       <div style={{
         position: 'absolute',
         top: 0, right: 0,
@@ -34,7 +30,6 @@ export default function Founder() {
 
       <div ref={ref} style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
 
-        {/* Section label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -46,7 +41,7 @@ export default function Founder() {
             color: '#C5A46D', fontSize: '11px', fontFamily: 'Montserrat, sans-serif',
             fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase',
           }}>
-            About the Founder
+            {t.label}
           </span>
         </motion.div>
 
@@ -57,14 +52,12 @@ export default function Founder() {
           alignItems: 'center',
         }}>
 
-          {/* Left — avatar + name */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '24px' }}
           >
-            {/* Avatar */}
             <div style={{
               width: '120px', height: '120px',
               backgroundColor: '#0F2742',
@@ -80,7 +73,6 @@ export default function Founder() {
               }}>
                 BC
               </span>
-              {/* Gold corner accent */}
               <div style={{
                 position: 'absolute',
                 bottom: '-6px', right: '-6px',
@@ -89,7 +81,6 @@ export default function Founder() {
               }} />
             </div>
 
-            {/* Name & title */}
             <div>
               <h3 style={{
                 fontFamily: 'Montserrat, sans-serif',
@@ -110,11 +101,10 @@ export default function Founder() {
                 textTransform: 'uppercase',
                 letterSpacing: '0.2em',
               }}>
-                Managing Director — Licensed Customs Broker
+                {t.role}
               </p>
             </div>
 
-            {/* Diploma badge */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -133,19 +123,18 @@ export default function Founder() {
                   textTransform: 'uppercase',
                   letterSpacing: '0.15em',
                   marginBottom: '3px',
-                }}>HEC Certified</div>
+                }}>{t.hecLabel}</div>
                 <div style={{
                   fontFamily: 'Inter, sans-serif',
                   fontSize: '12px',
                   color: 'rgba(255,255,255,0.75)',
                 }}>
-                  Fundamentals of Customs & Excise Legislation
+                  {t.hecSub}
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right — bio + credentials */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -161,8 +150,8 @@ export default function Founder() {
               lineHeight: 1.15,
               marginBottom: '20px',
             }}>
-              A Personal,<br />
-              <span style={{ color: '#C5A46D' }}>Expert Service</span>
+              {t.title1}<br />
+              <span style={{ color: '#C5A46D' }}>{t.title2}</span>
             </h2>
 
             <p style={{
@@ -173,9 +162,7 @@ export default function Founder() {
               marginBottom: '16px',
               maxWidth: '480px',
             }}>
-              Clearance Baran is a solo operation run personally by Baran Çiçek.
-              When you contact us, you deal directly with a qualified expert —
-              no middlemen, no call centres.
+              {t.bio1}
             </p>
 
             <p style={{
@@ -186,15 +173,11 @@ export default function Founder() {
               marginBottom: '36px',
               maxWidth: '480px',
             }}>
-              With formal training from HEC and hands-on experience in
-              Belgian customs procedures, Baran brings rigour and accountability
-              to every customs file — whether it's a single e-commerce parcel
-              or a large container from China.
+              {t.bio2}
             </p>
 
-            {/* Credentials list */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {credentials.map((item) => (
+              {t.credentials.map((item) => (
                 <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                   <CheckCircle size={16} style={{ color: '#C5A46D', marginTop: '2px', flexShrink: 0 }} />
                   <span style={{
@@ -209,7 +192,6 @@ export default function Founder() {
               ))}
             </div>
 
-            {/* Office location */}
             <div style={{
               marginTop: '36px',
               display: 'flex',

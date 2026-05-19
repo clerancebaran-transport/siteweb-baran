@@ -1,28 +1,12 @@
-const footerLinks = {
-  Services: [
-    'Customs Clearance',
-    'Freight & Transport',
-    'Express Delivery',
-    'E-commerce Logistics',
-    'Customs Consulting',
-  ],
-  Information: [
-    'Our Approach',
-    'Clearance Process',
-    'Certifications',
-    'Partners',
-  ],
-  Legal: [
-    { label: 'Legal Notice', href: '#' },
-    { label: 'Privacy Policy', href: '/privacy-policy' },
-    { label: 'Terms & Conditions', href: '#' },
-  ],
-}
+import { useLanguage } from '../context/LanguageContext'
+import translations from '../translations'
 
 export default function Footer() {
+  const { lang } = useLanguage()
+  const t = translations[lang].footer
+
   return (
     <footer style={{ backgroundColor: '#0A1E36', color: 'white' }}>
-      {/* Gold top accent */}
       <div style={{
         height: '1px',
         background: 'linear-gradient(90deg, transparent 0%, #C5A46D 50%, transparent 100%)',
@@ -36,7 +20,6 @@ export default function Footer() {
           marginBottom: '64px',
         }}>
 
-          {/* Brand column */}
           <div style={{ gridColumn: 'span 1' }}>
             <img
               src="/logo.png"
@@ -58,8 +41,7 @@ export default function Footer() {
               maxWidth: '260px',
               marginBottom: '24px',
             }}>
-              Licensed customs broker based in Awans, Belgium.
-              Your trusted partner for all customs and freight operations — e-commerce, China trade & beyond.
+              {t.description}
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#C5A46D' }} />
@@ -71,13 +53,12 @@ export default function Footer() {
                 textTransform: 'uppercase',
                 letterSpacing: '0.2em',
               }}>
-                Licensed Customs Broker — Belgium
+                {t.badge}
               </span>
             </div>
           </div>
 
-          {/* Link columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
+          {Object.entries(t.categories).map(([category, links]) => (
             <div key={category}>
               <h4 style={{
                 fontFamily: 'Montserrat, sans-serif',
@@ -95,30 +76,30 @@ export default function Footer() {
                   const label = typeof link === 'string' ? link : link.label
                   const href = typeof link === 'string' ? '#' : link.href
                   return (
-                  <li key={label}>
-                    <a
-                      href={href}
-                      style={{
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: '13px',
-                        color: 'rgba(255,255,255,0.65)',
-                        textDecoration: 'none',
-                        transition: 'color 0.2s ease',
-                        cursor: 'pointer',
-                      }}
-                      onMouseEnter={e => e.target.style.color = 'white'}
-                      onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.65)'}
-                    >
-                      {label}
-                    </a>
-                  </li>
-                )})}
+                    <li key={label}>
+                      <a
+                        href={href}
+                        style={{
+                          fontFamily: 'Inter, sans-serif',
+                          fontSize: '13px',
+                          color: 'rgba(255,255,255,0.65)',
+                          textDecoration: 'none',
+                          transition: 'color 0.2s ease',
+                          cursor: 'pointer',
+                        }}
+                        onMouseEnter={e => e.target.style.color = 'white'}
+                        onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.65)'}
+                      >
+                        {label}
+                      </a>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           ))}
         </div>
 
-        {/* Bottom bar */}
         <div style={{
           paddingTop: '32px',
           borderTop: '1px solid rgba(255,255,255,0.06)',
@@ -133,7 +114,7 @@ export default function Footer() {
             fontSize: '12px',
             color: 'rgba(255,255,255,0.25)',
           }}>
-            © {new Date().getFullYear()} Clearance Baran. All rights reserved.
+            © {new Date().getFullYear()} Clearance Baran. {t.copyright}
           </p>
           <p style={{
             fontFamily: 'Montserrat, sans-serif',
@@ -143,7 +124,7 @@ export default function Footer() {
             letterSpacing: '0.15em',
             textTransform: 'uppercase',
           }}>
-            Licensed Customs Broker — Awans, Belgium
+            {t.bottomBadge}
           </p>
         </div>
       </div>

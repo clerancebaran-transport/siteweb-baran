@@ -1,33 +1,16 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Award, Shield, Zap, Users } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
+import translations from '../translations'
 
-const features = [
-  {
-    Icon: Award,
-    title: 'Certified Expertise',
-    desc: 'HEC-certified training in Customs & Excise Legislation. Licensed customs broker with deep knowledge of Belgian and EU trade regulations.',
-  },
-  {
-    Icon: Shield,
-    title: 'Guaranteed Compliance',
-    desc: '98% compliance rate. Every file is handled with rigour to prevent holds, penalties and delays at customs.',
-  },
-  {
-    Icon: Zap,
-    title: '24/7 Responsiveness',
-    desc: 'Real-time tracking of your operations. Available to handle urgent customs matters at any time, including for e-commerce shipments.',
-  },
-  {
-    Icon: Users,
-    title: 'China–Belgium Specialist',
-    desc: 'Dedicated expertise for businesses importing from China. Direct relationships with carriers and customs authorities on both ends.',
-  },
-]
+const icons = [Award, Shield, Zap, Users]
 
 export default function WhyUs() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const { lang } = useLanguage()
+  const t = translations[lang].whyUs
 
   return (
     <section
@@ -39,7 +22,6 @@ export default function WhyUs() {
         overflow: 'hidden',
       }}
     >
-      {/* Decorative blobs */}
       <div style={{
         position: 'absolute', right: 0, top: 0,
         width: '400px', height: '400px',
@@ -53,7 +35,6 @@ export default function WhyUs() {
         pointerEvents: 'none',
       }} />
 
-      {/* Subtle grid */}
       <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.03, pointerEvents: 'none' }}>
         <defs>
           <pattern id="wgrid" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -71,7 +52,6 @@ export default function WhyUs() {
           alignItems: 'center',
         }}>
 
-          {/* Left text */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -83,7 +63,7 @@ export default function WhyUs() {
                 color: '#C5A46D', fontSize: '11px', fontFamily: 'Montserrat, sans-serif',
                 fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase',
               }}>
-                Why choose us
+                {t.label}
               </span>
             </div>
 
@@ -97,8 +77,8 @@ export default function WhyUs() {
               lineHeight: 1.1,
               marginBottom: '24px',
             }}>
-              The Reference in<br />
-              <span style={{ color: '#C5A46D' }}>Customs Clearance</span>
+              {t.h2a}<br />
+              <span style={{ color: '#C5A46D' }}>{t.h2b}</span>
             </h2>
 
             <p style={{
@@ -109,9 +89,7 @@ export default function WhyUs() {
               marginBottom: '40px',
               maxWidth: '440px',
             }}>
-              Clearance Baran is your trusted customs partner in Belgium.
-              We combine certified technical expertise, operational speed
-              and a personal commitment to full compliance on every file.
+              {t.text}
             </p>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -124,16 +102,15 @@ export default function WhyUs() {
                 textTransform: 'uppercase',
                 whiteSpace: 'nowrap',
               }}>
-                Licensed & Certified
+                {t.certified}
               </span>
               <div style={{ height: '1px', flex: 1, backgroundColor: 'rgba(255,255,255,0.08)' }} />
             </div>
           </motion.div>
 
-          {/* Right features grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: '16px' }}>
-            {features.map((feat, i) => {
-              const { Icon } = feat
+            {t.features.map((feat, i) => {
+              const Icon = icons[i]
               return (
                 <motion.div
                   key={feat.title}

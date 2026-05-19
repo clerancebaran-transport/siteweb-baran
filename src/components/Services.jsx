@@ -1,38 +1,14 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Ship, Plane, Truck, FileCheck, Globe, Clock } from 'lucide-react'
+import { Ship, Plane, Truck, Globe } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
+import translations from '../translations'
 
-const services = [
-  {
-    Icon: Ship,
-    title: 'Customs Clearance',
-    desc: 'Full handling of import and export customs declarations for all transport modes — sea, air and road. Compliance with Belgian and EU regulations.',
-    items: ['Import & export declarations', 'FCL/LCL container management', 'Cross-border transit'],
-  },
-  {
-    Icon: Truck,
-    title: 'Freight & Transport',
-    desc: 'Organisation of freight and container transport across Belgium and internationally. Groupage of individual shipments and coordinated delivery.',
-    items: ['Container transport', 'Groupage & consolidation', 'Last-mile delivery'],
-  },
-  {
-    Icon: Plane,
-    title: 'Express Delivery',
-    desc: 'Collection, routing and distribution of express parcels and letters for businesses and individuals. Fast turnaround with full tracking.',
-    items: ['Express freight', 'B2B & B2C parcels', 'Airport shuttle logistics'],
-  },
-  {
-    Icon: Globe,
-    title: 'E-commerce & China Trade',
-    desc: 'Specialised support for e-commerce businesses importing from China to Belgium. Customs clearance, VAT handling and direct delivery to end customers.',
-    items: ['China–Belgium imports', 'E-commerce logistics', 'VAT & duty management'],
-  },
-]
+const icons = [Ship, Truck, Plane, Globe]
 
-function ServiceCard({ service, index }) {
+function ServiceCard({ service, index, Icon }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-50px' })
-  const { Icon } = service
 
   return (
     <motion.div
@@ -64,7 +40,6 @@ function ServiceCard({ service, index }) {
         e.currentTarget.querySelector('.card-icon').style.color = '#2E5B7A'
       }}
     >
-      {/* Top gold bar */}
       <div
         className="card-bar"
         style={{
@@ -78,7 +53,6 @@ function ServiceCard({ service, index }) {
         }}
       />
 
-      {/* Icon */}
       <div style={{ marginBottom: '24px' }}>
         <div
           className="card-icon-bg"
@@ -97,7 +71,6 @@ function ServiceCard({ service, index }) {
         </div>
       </div>
 
-      {/* Title */}
       <h3 style={{
         fontFamily: 'Montserrat, sans-serif',
         fontWeight: 800,
@@ -110,7 +83,6 @@ function ServiceCard({ service, index }) {
         {service.title}
       </h3>
 
-      {/* Desc */}
       <p style={{
         fontFamily: 'Inter, sans-serif',
         fontSize: '13px',
@@ -121,7 +93,6 @@ function ServiceCard({ service, index }) {
         {service.desc}
       </p>
 
-      {/* Items */}
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {service.items.map((item) => (
           <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -137,12 +108,13 @@ function ServiceCard({ service, index }) {
 export default function Services() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { lang } = useLanguage()
+  const t = translations[lang].services
 
   return (
     <section id="services" style={{ padding: 'clamp(48px, 8vw, 96px) 0', backgroundColor: '#F8FAFC' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
 
-        {/* Header */}
         <div ref={ref} style={{ textAlign: 'center', marginBottom: '64px' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -155,7 +127,7 @@ export default function Services() {
               color: '#C5A46D', fontSize: '11px', fontFamily: 'Montserrat, sans-serif',
               fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase',
             }}>
-              Our Expertise
+              {t.label}
             </span>
             <span style={{ width: '32px', height: '1px', backgroundColor: '#C5A46D' }} />
           </motion.div>
@@ -174,7 +146,7 @@ export default function Services() {
               marginBottom: '16px',
             }}
           >
-            Our Services
+            {t.title}
           </motion.h2>
 
           <motion.p
@@ -187,18 +159,17 @@ export default function Services() {
               lineHeight: 1.7,
             }}
           >
-            A complete range of services to secure and optimise your international customs operations.
+            {t.subtitle}
           </motion.p>
         </div>
 
-        {/* Grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(min(480px, 100%), 1fr))',
           gap: '24px',
         }}>
-          {services.map((service, i) => (
-            <ServiceCard key={service.title} service={service} index={i} />
+          {t.items.map((service, i) => (
+            <ServiceCard key={service.title} service={service} index={i} Icon={icons[i]} />
           ))}
         </div>
       </div>

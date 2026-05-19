@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { LanguageProvider } from './context/LanguageContext'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Services from './components/Services'
+import Stats from './components/Stats'
 import WhyUs from './components/WhyUs'
 import Process from './components/Process'
 import Founder from './components/Founder'
@@ -15,6 +17,7 @@ function Home() {
       <Navbar />
       <Hero />
       <Services />
+      <Stats />
       <WhyUs />
       <Process />
       <Founder />
@@ -26,12 +29,14 @@ function Home() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      </Routes>
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        </Routes>
+      </BrowserRouter>
+    </LanguageProvider>
   )
 }
 

@@ -6,7 +6,7 @@ const contactInfo = [
   { Icon: MapPin, label: 'Address', value: 'Rue Delvaux 21, 4340 Awans, Belgium' },
   { Icon: Phone, label: 'Phone', value: '+32 488 08 01 14' },
   { Icon: Mail, label: 'Email', value: 'clerancebaran@gmail.com' },
-  { Icon: Clock, label: 'Office Hours', value: 'Mon–Fri: 8:00 AM – 6:00 PM' },
+  { Icon: Clock, label: 'Office Hours', value: 'Mon–Fri: 8:00 – 17:00' },
 ]
 
 const inputStyle = {

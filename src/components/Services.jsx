@@ -27,18 +27,6 @@ const services = [
     desc: 'Specialised support for e-commerce businesses importing from China to Belgium. Customs clearance, VAT handling and direct delivery to end customers.',
     items: ['China–Belgium imports', 'E-commerce logistics', 'VAT & duty management'],
   },
-  {
-    Icon: FileCheck,
-    title: 'Customs Consulting',
-    desc: 'Expert advice on tariff classification, trade compliance and customs procedures. Tailored audit and optimisation of your import/export operations.',
-    items: ['Tariff classification (HS/CN8)', 'Compliance audit', 'Regulatory guidance'],
-  },
-  {
-    Icon: Clock,
-    title: 'Training & Advisory',
-    desc: 'Training programmes on customs and excise legislation for companies. Practical sessions to help your team navigate Belgian and EU trade regulations.',
-    items: ['In-house training', 'Customs & excise law', 'Ongoing advisory'],
-  },
 ]
 
 function ServiceCard({ service, index }) {

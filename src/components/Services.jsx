@@ -194,7 +194,7 @@ export default function Services() {
         {/* Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(480px, 100%), 1fr))',
           gap: '24px',
         }}>
           {services.map((service, i) => (
